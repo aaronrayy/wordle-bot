@@ -1,9 +1,13 @@
 from os import stat
-import wordModule
+import word_module
 import search_words
 
 #instance of word module word class
-w = wordModule.word()
+w = word_module.word()
+
+# print(w.words)
+# print()
+# print(len(w.words))
 
 print("hello.\n   enter a word to check if its in the word list\n      type 'q' at any time to exit\n")
 
@@ -15,8 +19,8 @@ while(1):
     #checks if user guess is valid (5 letters, and in the word bank)
     if (len(start_word) == 5) and (start_word in w.words):
         #instance of word module guess class
-        curr = wordModule.guess(start_word, 0)
-        curr.letters = list(start_word)
+        curr = word_module.guess(start_word, 0)
+        #curr.letters = list(start_word)
         
         #string representing status of letters in the guess (from wordle)
         results = input("\n     now enter the status of each letter.\n          y --> letter is in the word and in the right spot\n          n --> letter is not in the word at all\n          m --> letter is in the word, but not in the right spot\n\n          enter as one complete string: ")
@@ -25,15 +29,16 @@ while(1):
         for i in range(5):
             if (results[i] == 'y') or (results[i] == 'm'):
                 curr.tags.append(results[i])
+                curr.letters.append(start_word[i])
                 curr.num_in += 1
             else:
                 curr.tags.append("n")
 
         #searches for matching words in word bank
-        print("searching for matching word...")
+        print("searching for matching words...\n")
 
         options = search_words.search(w.words, curr)
-        print(options)
+        #print(options)
 
     #checks for quit command
     elif start_word == 'q':
@@ -42,4 +47,6 @@ while(1):
     #guess was not valid. restart loop
     else:
         print("invalid input. please try again")
+
+
 

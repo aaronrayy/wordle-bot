@@ -10,3 +10,7 @@ INTRODUCTION
                 n --> letter is not in the word at all
                 m --> letter is in the word, but not in the right spot
             }
+
+    the word bank comes from
+        https://www.bestwordlist.com/5letterwords.htm 
+    its a list of apparently all of the 12,478 5-letter english words. since there were 15 pages of the list, i copied and pasted them into a txt file in the source files (data.txt), which is read and input into a word bank using the list type in word_module.py
