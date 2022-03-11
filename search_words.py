@@ -1,26 +1,21 @@
 from os import stat
 from tracemalloc import start
 
+def printout(l):
+    print("     i found", len(l), "words that could help you :-)\n")
+    i = 1
+    for element in l:
+        print("     " + str(i) + ": " + element)
+        i += 1
+
 def compare_letters(comp, guess):
     status = 0
-    # for i in range(5):
-    #     if (guess.letters)[i] in comp:
-    #         print("i: ", i, "\n   ", (guess.letters)[i], "\n   ", comp)
-    #         status += 1
-
-    # if status == guess.num_in:
-    #     return True
-    # else:
-    #     return False
-    # c = list(comp)
-    # print("comp: ", c)
-    # print("   guess: ", guess.letters)
-    # if all(x in guess.letters for x in list(comp)):
-    #     return True
-    # else:
-    #     return False
-    for i in range(len(guess.letters)):
-        if comp.find(guess.letters[i]) > 0:
+    for i in range(5):
+        # if ((guess.tags[i] == 'y') or (guess.tags[i] == 'm')) and (guess.w[i] in comp):
+        #     status += 1
+        if (guess.tags[i] == 'y') and (guess.w[i] == comp[i]):
+            status += 1
+        elif (guess.tags[i] == 'm') and (guess.w[i] in comp):
             status += 1
     if status == guess.num_in:
         return True
@@ -37,8 +32,8 @@ def search(bank, guess):
     options = []
     f = open("output.txt", "w")
     for word in bank:
-        if compare_letters(word, guess):
-            f.write(word)
-            f.write("\n")
+        if compare_letters(word, guess) and (word != guess.w):
+            f.write(word + "\n")
             options.append(word)
+    f.close
     return options
