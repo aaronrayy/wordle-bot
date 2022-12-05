@@ -19,3 +19,6 @@ class guess:
     letters = []
     tags = []
     num_in = 0
+    num_y = 0
+    num_m = 0
+    num_n = 0

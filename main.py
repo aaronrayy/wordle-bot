@@ -10,16 +10,20 @@ def check_tags(l):
             return True
     return False
 
+def copy(src, out):
+    for i in out:
+        out.remove(i)
+    for e in src:
+        out.append(e)
+    return out
+
 #instance of word module word class
 w = word_module.word()
 
-# print(w.words)
-# print()
-# print(len(w.words))
-
-
 print("hello. i will help you play wordle.\n   enter a word to check if its in the word list\n   you may type 'q' at any time to exit")
 #main loop
+options = []
+step = 0
 while(1):
     #user guess the program will use
     start_word = input("\n   enter word: ")
@@ -45,26 +49,34 @@ while(1):
                 curr.tags.append(results[i])
                 curr.letters.append(start_word[i])
                 curr.num_in += 1
+                if results[i] == 'y':
+                    curr.num_y += 1
+                else:
+                    curr.num_m += 1
             else:
                 curr.tags.append("n")
+                curr.num_n += 1
 
         #searches for matching words in word bank
         print(" searching for matching words...\n")
         #print("check output file :-)")
 
-        options = search_words.search(w.words, curr)
+        tmp = search_words.search(w.words, options, curr, step)
+
+        tmp2 = copy(tmp, options)
+        options = tmp2
 
         #print("tags: ", curr.tags)
         #print(options)
         search_words.printout(options)
         #print("num in: ", curr.num_in)
+        step += 1
+
     #checks for quit command
     elif start_word == 'q':
         print("\n" + ("  --exiting now. goodbye--\n".center(46)))
         break
     #guess was not valid. restart loop
+
     else:
-        print(" --invalid input. please try again--\n")
-
-
-
+        print("\n" + "  --invalid input. please try again--".center(46))
